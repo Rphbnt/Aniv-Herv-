@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bon Anniv Hervé 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0c0c0e; --card: #141416; --border: rgba(255,255,255,0.07);
+  --white: #f4f4f5; --dim: #888;
+  --a: #f97316; --b: #a855f7; --c: #22d3ee; --d: #f43f5e; --e: #4ade80;
+}
+html, body { height: 100%; }
+body {
+  background: var(--bg); color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 100vh; overflow-x: hidden; padding: 16px 0;
+}
+body::before {
+  content:''; position: fixed; inset:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 50%, rgba(249,115,22,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 80% 30%, rgba(168,85,247,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 60% 80%, rgba(34,211,238,0.04) 0%, transparent 70%);
+  pointer-events:none; animation: bgPulse 8s ease-in-out infinite alternate;
+}
+@keyframes bgPulse { from { opacity:0.6; } to { opacity:1; } }
+.card {
+  width: min(520px, 94vw); background: var(--card);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: clamp(24px,6vw,48px) clamp(20px,6vw,40px) clamp(20px,5vw,40px);
+  position: relative; overflow: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.5);
+}
+.card::before {
+  content:''; position: absolute; top:0; left:10%; right:10%; height:1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+}
+.eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 10px; opacity:0;
+  animation: up 0.6s ease 0.1s forwards;
+}
+.title {
+  font-family: 'Syne', sans-serif; font-size: clamp(2rem,10vw,3.4rem);
+  font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+  margin-bottom: 6px; opacity:0; animation: up 0.6s ease 0.2s forwards;
+}
+.title .name {
+  display: block;
+  background: linear-gradient(135deg, var(--a), var(--b));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.from {
+  font-size: 0.85rem; color: var(--dim);
+  margin-bottom: clamp(20px,5vw,36px); opacity:0; animation: up 0.6s ease 0.3s forwards;
+}
+.from span { color: var(--white); }
+@keyframes up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+.divider {
+  height:1px; background: var(--border);
+  margin-bottom: clamp(18px,4vw,28px); opacity:0; animation: up 0.6s ease 0.35s forwards;
+}
+.label {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 14px; opacity:0; animation: up 0.6s ease 0.4s forwards;
+}
+.btns {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 10px; opacity:0; animation: up 0.6s ease 0.5s forwards;
+}
+.btn {
+  position: relative; padding: clamp(12px,3vw,14px) clamp(12px,3vw,16px);
+  border: 1px solid var(--border); border-radius: 12px;
+  background: rgba(255,255,255,0.03); color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-size: clamp(0.78rem,3.5vw,0.85rem);
+  cursor: pointer; text-align: left;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+  overflow: hidden; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.96); }
+.btn .ico { font-size: clamp(1.1rem,5vw,1.3rem); display:block; margin-bottom:6px; }
+.btn .lbl { display:block; font-weight:400; }
+.btn .sub { display:block; font-size: clamp(0.65rem,2.8vw,0.72rem); color:var(--dim); margin-top:2px; }
+.btn-a{--c1:var(--a)} .btn-b{--c1:var(--b)} .btn-c{--c1:var(--c)}
+.btn-d{--c1:var(--d)} .btn-e{--c1:var(--e)} .btn-f{--c1:#facc15}
+.btn:hover {
+  border-color: var(--c1); background: color-mix(in srgb, var(--c1) 8%, transparent);
+  transform: translateY(-2px);
+}
+.btn.fired { animation: btnPop 0.4s ease; }
+@keyframes btnPop { 0%{transform:scale(1)} 40%{transform:scale(0.93)} 70%{transform:scale(1.04)} 100%{transform:scale(1)} }
+.ripple {
+  position: absolute; border-radius: 50%; background: var(--c1);
+  opacity: 0.25; transform: scale(0); animation: ripple 0.5s ease-out forwards; pointer-events: none;
+}
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+.feedback {
+  min-height: 48px; display: flex; align-items: center;
+  padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px;
+  background: rgba(255,255,255,0.02); font-size: clamp(0.8rem,3.5vw,0.9rem);
+  color: var(--dim); transition: border-color 0.3s, color 0.3s;
+  margin-bottom: 10px; opacity:0; animation: up 0.6s ease 0.55s forwards;
+}
+.feedback.active { border-color: var(--active-color, var(--a)); color: var(--white); }
+canvas#fx { position: fixed; inset:0; pointer-events:none; z-index:999; }
+.footer {
+  margin-top: clamp(16px,4vw,24px); display:flex; justify-content:space-between;
+  align-items:center; opacity:0; animation: up 0.6s ease 0.6s forwards;
+}
+.footer-tag { font-size:0.7rem; color:var(--dim); letter-spacing:0.1em; }
+.heart { font-size: 1.1rem; animation: heartbeat 1.5s ease-in-out infinite; cursor: pointer; }
+@keyframes heartbeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+</style>
+</head>
+<body>
+
+<canvas id="fx"></canvas>
+
+<div class="card" id="card">
+  <p class="eyebrow">🎂 &nbsp;aujourd'hui c'est ton jour</p>
+  <h1 class="title">Joyeux<br>Anniversaire<span class="name">Hervé</span></h1>
+  <p class="from">de la part de <span>Raphaël</span> 🧡</p>
+
+  <div class="divider"></div>
+
+  <p class="label">Appuie sur un bouton —</p>
+
+  <div class="btns">
+    <button class="btn btn-a" data-id="confetti">🎊 Confettis</button>
+    <button class="btn btn-b" data-id="firework">🎆 Feux</button>
+    <button class="btn btn-c" data-id="disco">🪩 Disco</button>
+    <button class="btn btn-d" data-id="hearts">💖 Amour</button>
+    <button class="btn btn-e" data-id="rain">✨ Étoiles</button>
+    <button class="btn btn-f" data-id="cake">🎂 Gâteau</button>
+  </div>
+
+  <div class="feedback" id="feedback">← clique quelque chose !</div>
+
+  <div class="footer">
+    <span class="footer-tag">fait avec 🧡 par Raphaël</span>
+    <span class="heart" onclick="triggerAll()">💫</span>
+  </div>
+</div>
+
+<script>
+console.log("JS chargé");
+
+const canvas = document.getElementById('fx');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle {
+  constructor(x,y,vx,vy,size,color){
+    this.x=x;this.y=y;this.vx=vx;this.vy=vy;
+    this.size=size;this.color=color;this.life=1;
+  }
+  update(){
+    this.x+=this.vx;
+    this.y+=this.vy;
+    this.life-=0.01;
+    ctx.globalAlpha=this.life;
+    ctx.fillStyle=this.color;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>p.update());
+  requestAnimationFrame(animate);
+}
+animate();
+
+function confetti(x,y){
+  for(let i=0;i<80;i++){
+    particles.push(new Particle(x,y,(Math.random()-0.5)*6,(Math.random()-0.5)*6,3,'#f97316'));
+  }
+}
+
+function firework(x,y){
+  for(let i=0;i<100;i++){
+    particles.push(new Particle(x,y,(Math.random()-0.5)*8,(Math.random()-0.5)*8,2,'#a855f7'));
+  }
+}
+
+function triggerAll(){
+  confetti(canvas.width/2,canvas.height/2);
+  firework(canvas.width/2,canvas.height/2);
+}
+
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    const x=e.clientX,y=e.clientY;
+    if(btn.dataset.id==='confetti') confetti(x,y);
+    if(btn.dataset.id==='firework') firework(x,y);
+  });
+});
+</script>
+
+</body>
+</html>

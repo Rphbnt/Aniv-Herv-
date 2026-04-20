@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bon Anniv Hervé 🎉</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--bg:#0c0c0e;
+--card:#141416;
+--border:rgba(255,255,255,0.07);
+--white:#f4f4f5;
+--dim:#888;
+--a:#f97316;
+--b:#a855f7;
+--c:#22d3ee;
+--d:#f43f5e;
+--e:#4ade80;
+}
+
+body{
+background:var(--bg);
+color:var(--white);
+font-family:'DM Sans',sans-serif;
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+overflow:hidden;
+}
+
+.card{
+width:90%;
+max-width:520px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:20px;
+padding:30px;
+text-align:center;
+box-shadow:0 0 60px rgba(0,0,0,0.5);
+}
+
+.title{
+font-family:'Syne',sans-serif;
+font-size:2.8rem;
+}
+
+.name{
+display:block;
+background:linear-gradient(135deg,var(--a),var(--b));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.btns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:20px;
+}
+
+.btn{
+padding:12px;
+border-radius:10px;
+border:1px solid var(--border);
+background:#1f1f23;
+color:white;
+cursor:pointer;
+transition:0.2s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.feedback{
+margin-top:15px;
+color:var(--dim);
+}
+
+canvas{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fx"></canvas>
+
+<div class="card" id="card">
+<h1 class="title">
+Joyeux Anniversaire
+<span class="name">Hervé</span>
+</h1>
+
+<p>de la part de Raphaël 🧡</p>
+
+<div class="btns">
+<button class="btn" onclick="confetti()">🎊 Confettis</button>
+<button class="btn" onclick="firework()">🎆 Feux</button>
+<button class="btn" onclick="hearts()">💖 Amour</button>
+<button class="btn" onclick="stars()">✨ Étoiles</button>
+<button class="btn" onclick="disco()">🪩 Disco</button>
+<button class="btn" onclick="cake()">🎂 Gâteau</button>
+</div>
+
+<div class="feedback" id="feedback">← clique quelque chose !</div>
+</div>
+
+<script>
+const canvas=document.getElementById('fx');
+const ctx=canvas.getContext('2d');
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+addEventListener('resize',resize);
+
+let particles=[];
+
+class Particle{
+constructor(o){
+this.x=o.x;
+this.y=o.y;
+this.vx=o.vx;
+this.vy=o.vy;
+this.size=o.size;
+this.color=o.color;
+this.life=1;
+this.gravity=o.gravity||0.1;
+this.shape=o.shape||'circle';
+this.spin=o.spin||0;
+this.angle=Math.random()*Math.PI*2;
+}
+
+update(){
+this.x+=this.vx;
+this.y+=this.vy;
+this.vy+=this.gravity;
+this.life-=0.01;
+this.angle+=this.spin;
+
+ctx.save();
+ctx.globalAlpha=this.life;
+
+ctx.translate(this.x,this.y);
+ctx.rotate(this.angle);
+
+if(this.shape==='rect'){
+ctx.fillStyle=this.color;
+ctx.fillRect(-this.size/2,-this.size/2,this.size,this.size*0.5);
+}
+else if(this.shape==='emoji'){
+ctx.font=this.size+"px serif";
+ctx.fillText(this.color,-this.size/2,this.size/2);
+}
+else{
+ctx.fillStyle=this.color;
+ctx.beginPath();
+ctx.arc(0,0,this.size,0,Math.PI*2);
+ctx.fill();
+}
+
+ctx.restore();
+}
+}
+
+function loop(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles=particles.filter(p=>p.life>0);
+particles.forEach(p=>p.update());
+requestAnimationFrame(loop);
+}
+loop();
+
+function confetti(){
+for(let i=0;i<120;i++){
+const a=Math.random()*Math.PI*2;
+const s=3+Math.random()*6;
+
+particles.push(new Particle({
+x:innerWidth/2,
+y:innerHeight/2,
+vx:Math.cos(a)*s,
+vy:Math.sin(a)*s-4,
+size:5,
+color:`hsl(${Math.random()*360},100%,60%)`,
+shape:Math.random()>0.5?'rect':'circle',
+gravity:0.2,
+spin:(Math.random()-0.5)*0.3
+}));
+}
+setFeedback("🎊 Confettis !");
+}
+
+function firework(){
+const cx=innerWidth/2;
+const cy=innerHeight/2;
+
+for(let i=0;i<120;i++){
+const a=Math.random()*Math.PI*2;
+const s=2+Math.random()*6;
+
+particles.push(new Particle({
+x:cx,
+y:cy,
+vx:Math.cos(a)*s,
+vy:Math.sin(a)*s,
+size:3,
+color:`hsl(${Math.random()*360},100%,60%)`,
+gravity:0.05
+}));
+}
+setFeedback("🎆 BOOM !");
+}
+
+function hearts(){
+const em=['💖','💕','💗','💝','🧡','💛'];
+
+for(let i=0;i<40;i++){
+particles.push(new Particle({
+x:innerWidth/2,
+y:innerHeight/2,
+vx:(Math.random()-0.5)*3,
+vy:-Math.random()*5,
+size:20,
+color:em[Math.floor(Math.random()*em.length)],
+shape:'emoji',
+gravity:-0.02
+}));
+}
+setFeedback("💖 Amour !");
+}
+
+function stars(){
+const em=['⭐','✨','🌟','💫'];
+
+for(let i=0;i<60;i++){
+const a=Math.random()*Math.PI*2;
+
+particles.push(new Particle({
+x:innerWidth/2,
+y:innerHeight/2,
+vx:Math.cos(a)*(1+Math.random()*4),
+vy:Math.sin(a)*(1+Math.random()*4),
+size:18,
+color:em[Math.floor(Math.random()*em.length)],
+shape:'emoji',
+gravity:0.02
+}));
+}
+setFeedback("✨ Étoiles !");
+}
+
+function disco(){
+let t=0;
+let i=setInterval(()=>{
+t++;
+document.getElementById('card').style.boxShadow=
+`0 0 60px hsl(${t*20},80%,50%)`;
+
+if(t>20){
+clearInterval(i);
+document.getElementById('card').style.boxShadow='0 0 60px rgba(0,0,0,0.5)';
+}
+},80);
+
+setFeedback("🪩 Disco !");
+}
+
+function cake(){
+for(let i=0;i<40;i++){
+particles.push(new Particle({
+x:innerWidth/2,
+y:innerHeight/2,
+vx:(Math.random()-0.5)*2,
+vy:-Math.random()*3,
+size:10,
+color:'rgba(255,255,255,0.5)',
+gravity:-0.03
+}));
+}
+confetti();
+setFeedback("🎂 Fais un vœu !");
+}
+
+function setFeedback(txt){
+document.getElementById('feedback').textContent=txt;
+}
+</script>
+
+</body>
+</html>
